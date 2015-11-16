@@ -23,6 +23,7 @@ var lib = ffi.Library('librobotdriver', {
 });
 
 module.exports = {
+    init: lib.initMotorDriver,
     Lspeed: function(speed) {
         if(typeof speed != "undefined") {
             lib.setLspeed(speed);
@@ -76,7 +77,7 @@ module.exports = {
         if(typeof value != "undefined") {
             lib.setRobotHeading(value);
         } else {
-            return lib.getRobotHeading(), 2);
+            return lib.getRobotHeading();
         }
     },
     updateFrequency: function(value) {

@@ -19,6 +19,9 @@ var io = require("socket.io")(server);
 var RspeedSamples = [];
 var LspeedSamples = [];
 
+// init driver
+driver.init();
+
 io.on('connection', function (socket) {
     var state = {
         Rspeed: driver.Rspeed(),
@@ -56,7 +59,6 @@ function medianFilter(value) {
 }
 
 function updateMotorData() {
-    console.log(driver.Rspeed());
     io.emit("motordata", {
         Rspeed: driver.Rspeed().round(2),
         Lspeed: driver.Lspeed().round(2),
@@ -75,4 +77,4 @@ function sampleSpeed() {
 	RspeedSamples.push(driver.Rspeed());
 	LspeedSamples.push(driver.Lspeed());
 }
-sampleSpeed().every(20);
+sampleSpeed.every(20);

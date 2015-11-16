@@ -1,6 +1,6 @@
 Object.extend();
 
-function testCharts() {
+function testCharts(Rchart, Lchart) {
     var i=0;
     var buff = [];
     function mySine(x) {
@@ -31,5 +31,5 @@ $(function () {
             Lchart.addMultiple(data.Lsamples);
     });
 
-    testCharts();
+    //testCharts(Rchart, Lchart);
 });

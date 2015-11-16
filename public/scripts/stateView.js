@@ -1,5 +1,6 @@
 function StateView(container) {
     var PIDupdateCallback = function(coeffs) { console.dir(coeffs);};
+    var moveCallback = function(move) { console.dir(move);};
 
     $(container).find("#updatePID").click(function () {
         var pid = {
@@ -12,7 +13,30 @@ function StateView(container) {
         else
             PIDupdateCallback(pid);
     });
-
+    $(container).find("#move").click(function () {
+        var move = {
+            Rdist: parseInt($("#moveDist").val()),
+            Ldist: parseInt($("#moveDist").val()),
+            Rspeed: parseInt($("#moveSpeed").val()),
+            Lspeed: parseInt($("#moveSpeed").val())
+        }
+        if(isNaN(move.Rdist) || isNaN(move.Rspeed))
+            alert("Vitesse et/ou distance non valide");
+        else
+            moveCallback(move);
+    });
+    $(container).find("#return").click(function () {
+        var move = {
+            Rdist: parseInt($("#moveDist").val()),
+            Ldist: parseInt($("#moveDist").val()),
+            Rspeed: -parseInt($("#moveSpeed").val()),
+            Lspeed: -parseInt($("#moveSpeed").val())
+        }
+        if(isNaN(move.Rdist) || isNaN(move.Rspeed))
+            alert("Vitesse et/ou distance non valide");
+        else
+            moveCallback(move);
+    });
     function render(state) {
         state.each(function (key, value) {
             if(key == "Ki" || key == "Kp" || key == "Kd")
@@ -24,8 +48,12 @@ function StateView(container) {
     function setPIDupdateCallback(callback) {
         PIDupdateCallback = callback
     }
+    function setMoveCallback(callback) {
+        moveCallback = callback
+    }
     return {
         render: render,
-        PIDupdate: setPIDupdateCallback
+        PIDupdate: setPIDupdateCallback,
+        move: setMoveCallback
     }
 }

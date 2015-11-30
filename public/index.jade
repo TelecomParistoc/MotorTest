@@ -1,0 +1,65 @@
+//output:index.html, pretty:true
+
+doctype html
+html
+    head
+        title Motor Test
+        link(rel='stylesheet', href='styles/style.css')
+        link(rel='stylesheet', href='styles/font-awesome.css')
+        link(rel='stylesheet', href='bower_components/chartist/dist/chartist.min.css')
+    body
+        div#topbar
+            img(src="images/raspberry.png").topbar-icon
+            h2.topbar-title Motor Controller Test
+        div#info
+            center
+                h2 Etat actuel 
+                    span.fa.fa-tachometer
+            h3 Distances :
+            | &nbsp;&nbsp;&nbsp;&nbsp; roue droite :&nbsp;&nbsp;&nbsp;
+            span#Rdistance 0
+            | &nbsp;mm
+            br 
+            | &nbsp;&nbsp;&nbsp;&nbsp; roue gauche :&nbsp;
+            span#Ldistance 0
+            | &nbsp;mm
+            br
+            br 
+            h3 Vitesses :
+            | &nbsp;&nbsp;&nbsp;&nbsp; roue droite :&nbsp;&nbsp;&nbsp;
+            span#Rspeed 0
+            | &nbsp;m/s
+            br 
+            | &nbsp;&nbsp;&nbsp;&nbsp; roue gauche :&nbsp;
+            span#Lspeed 0
+            | &nbsp;m/s
+            br
+            br
+            h3 Coefficients PID :
+            | &nbsp;&nbsp;&nbsp;&nbsp; Kp :&nbsp;
+            input(type="number")#Kp
+            br 
+            | &nbsp;&nbsp;&nbsp;&nbsp; Ki :&nbsp;&nbsp;
+            input(type="number")#Ki
+            br
+            | &nbsp;&nbsp;&nbsp;&nbsp; Kd :&nbsp;
+            input(type="number")#Kd
+            br
+            | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            a#updatePID mettre &agrave jour
+        div#charts
+            center
+                h2 Graphes
+                    span.fa.fa-line-chart
+            h3 Vitesse droite :
+            div.ct-chart.ct-minor-seventh#Rspeed-chart
+            h3 Vitesse gauche :
+            div.ct-chart.ct-minor-seventh#Lspeed-chart
+        
+        script(src="bower_components/jquery/dist/jquery.min.js")
+        script(src="bower_components/sugar/release/sugar-full.min.js")
+        script(src="bower_components/chartist/dist/chartist.min.js")
+        script(src="scripts/socket.io.js")
+        script(src="scripts/monitorView.js")
+        script(src="scripts/stateView.js")
+        script(src="scripts/main.js")

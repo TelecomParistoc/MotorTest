@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Motor Test</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/font-awesome.css">
+    <link rel="stylesheet" href="bower_components/chartist/dist/chartist.min.css">
+  </head>
+  <body>
+    <div id="topbar"><img src="images/raspberry.png" class="topbar-icon">
+      <h2 class="topbar-title">Motor Controller Test</h2>
+    </div>
+    <div id="info">
+      <center>
+        <h2>Etat actuel <span class="fa fa-tachometer"></span></h2>
+      </center>
+      <h3>Distances :</h3>&nbsp;&nbsp;&nbsp;&nbsp; roue droite :&nbsp;&nbsp;&nbsp;<span id="Rdistance">0</span>&nbsp;mm<br>&nbsp;&nbsp;&nbsp;&nbsp; roue gauche :&nbsp;<span id="Ldistance">0</span>&nbsp;mm<br><br>
+      <h3>Vitesses :</h3>&nbsp;&nbsp;&nbsp;&nbsp; roue droite :&nbsp;&nbsp;&nbsp;<span id="Rspeed">0</span>&nbsp;m/s<br>&nbsp;&nbsp;&nbsp;&nbsp; roue gauche :&nbsp;<span id="Lspeed">0</span>&nbsp;m/s<br><br>
+      <h3>Coefficients PID :</h3>&nbsp;&nbsp;&nbsp;&nbsp; Kp :&nbsp;
+      <input type="number" id="Kp"><br>&nbsp;&nbsp;&nbsp;&nbsp; Ki :&nbsp;&nbsp;
+      <input type="number" id="Ki"><br>&nbsp;&nbsp;&nbsp;&nbsp; Kd :&nbsp;
+      <input type="number" id="Kd"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="updatePID">mettre &agrave jour</a>
+    </div>
+    <div id="charts">
+      <center>
+        <h2>Graphes<span class="fa fa-line-chart"></span></h2>
+      </center>
+      <h3>Vitesse droite :</h3>
+      <div id="Rspeed-chart" class="ct-chart ct-minor-seventh"></div>
+      <h3>Vitesse gauche :</h3>
+      <div id="Lspeed-chart" class="ct-chart ct-minor-seventh"></div>
+    </div>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/sugar/release/sugar-full.min.js"></script>
+    <script src="bower_components/chartist/dist/chartist.min.js"></script>
+    <script src="scripts/socket.io.js"></script>
+    <script src="scripts/monitorView.js"></script>
+    <script src="scripts/stateView.js"></script>
+    <script src="scripts/main.js"></script>
+  </body>
+</html>

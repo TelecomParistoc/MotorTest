@@ -20,7 +20,7 @@ var RspeedSamples = [];
 var LspeedSamples = [];
 
 io.on('connection', function (socket) {
-    io.emit("motordata", {
+    var state = {
         Rspeed: driver.Rspeed(),
         Lspeed: driver.Lspeed(),
         Rdistance: driver.Rdistance(),
@@ -28,8 +28,13 @@ io.on('connection', function (socket) {
         Kp: driver.Kp(),
         Ki: driver.Ki(),
         Kd: driver.Kd()
-    });
+    };
+    console.log("New client, sending data :");
+    console.dir(state);
+    io.emit("motordata", state);
+
     socket.on("pid", function(data) {
+        console.log("Updating PID");
         if(typeof data.Kp == "number" && !isNaN(data.Kp))
             driver.Kp(data.Kp);
         if(typeof data.Ki == "number" && !isNaN(data.Ki))

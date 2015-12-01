@@ -24,7 +24,13 @@ html
             span#Ldistance 0
             | &nbsp;mm
             br
-            br 
+            br
+            h3 Orientation :
+            | &nbsp;&nbsp;&nbsp;&nbsp; cap (0-360&deg;) :&nbsp;&nbsp;&nbsp;
+            span#heading 0
+            | &nbsp;&deg;
+            br
+            br
             h3 Vitesses :
             | &nbsp;&nbsp;&nbsp;&nbsp; roue droite :&nbsp;&nbsp;&nbsp;
             span#Rspeed 0
@@ -46,11 +52,17 @@ html
             input(type="number")#Kd
             br
             | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            a#updatePID mettre &agrave jour
+            a.btn#updatePID mettre &agrave jour
         div#charts
             center
                 h2 Graphes
                     span.fa.fa-line-chart
+            a.btn#playChart
+                span(style="margin-left: .5vw").fa.fa-play
+                | mesurer
+            a.btn#stopChart
+                span(style="margin-left: .5vw").fa.fa-stop
+                | stop
             h3 Vitesse droite :
             div.ct-chart.ct-minor-seventh#Rspeed-chart
             h3 Vitesse gauche :
@@ -61,5 +73,6 @@ html
         script(src="bower_components/chartist/dist/chartist.min.js")
         script(src="scripts/socket.io.js")
         script(src="scripts/monitorView.js")
+        script(src="scripts/Monitor.js")
         script(src="scripts/stateView.js")
         script(src="scripts/main.js")

@@ -15,16 +15,17 @@
         <h2>Etat actuel <span class="fa fa-tachometer"></span></h2>
       </center>
       <h3>Distances :</h3>&nbsp;&nbsp;&nbsp;&nbsp; roue droite :&nbsp;&nbsp;&nbsp;<span id="Rdistance">0</span>&nbsp;mm<br>&nbsp;&nbsp;&nbsp;&nbsp; roue gauche :&nbsp;<span id="Ldistance">0</span>&nbsp;mm<br><br>
+      <h3>Orientation :</h3>&nbsp;&nbsp;&nbsp;&nbsp; cap (0-360&deg;) :&nbsp;&nbsp;&nbsp;<span id="heading">0</span>&nbsp;&deg;<br><br>
       <h3>Vitesses :</h3>&nbsp;&nbsp;&nbsp;&nbsp; roue droite :&nbsp;&nbsp;&nbsp;<span id="Rspeed">0</span>&nbsp;m/s<br>&nbsp;&nbsp;&nbsp;&nbsp; roue gauche :&nbsp;<span id="Lspeed">0</span>&nbsp;m/s<br><br>
       <h3>Coefficients PID :</h3>&nbsp;&nbsp;&nbsp;&nbsp; Kp :&nbsp;
       <input type="number" id="Kp"><br>&nbsp;&nbsp;&nbsp;&nbsp; Ki :&nbsp;&nbsp;
       <input type="number" id="Ki"><br>&nbsp;&nbsp;&nbsp;&nbsp; Kd :&nbsp;
-      <input type="number" id="Kd"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="updatePID">mettre &agrave jour</a>
+      <input type="number" id="Kd"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="updatePID" class="btn">mettre &agrave jour</a>
     </div>
     <div id="charts">
       <center>
         <h2>Graphes<span class="fa fa-line-chart"></span></h2>
-      </center>
+      </center><a id="playChart" class="btn"><span style="margin-left: .5vw" class="fa fa-play"></span>mesurer</a><a id="stopChart" class="btn"><span style="margin-left: .5vw" class="fa fa-stop"></span>stop</a>
       <h3>Vitesse droite :</h3>
       <div id="Rspeed-chart" class="ct-chart ct-minor-seventh"></div>
       <h3>Vitesse gauche :</h3>
@@ -35,6 +36,7 @@
     <script src="bower_components/chartist/dist/chartist.min.js"></script>
     <script src="scripts/socket.io.js"></script>
     <script src="scripts/monitorView.js"></script>
+    <script src="scripts/Monitor.js"></script>
     <script src="scripts/stateView.js"></script>
     <script src="scripts/main.js"></script>
   </body>

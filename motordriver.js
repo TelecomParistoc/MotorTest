@@ -76,7 +76,7 @@ module.exports = {
         if(typeof value != "undefined") {
             lib.setRobotHeading(value);
         } else {
-            return lib.getRobotHeading();
+            return lib.getRobotHeading(), 2);
         }
     },
     updateFrequency: function(value) {

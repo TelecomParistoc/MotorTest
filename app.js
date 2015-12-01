@@ -43,15 +43,28 @@ io.on('connection', function (socket) {
             driver.Kd(data.Kd);
     });
 });
+
+var filterValues = [];
+function medianFilter(value) {
+    filterValues.push(value);
+    if(filterValues.length==4) {
+        filterValues.shift();
+        return filterValues.slice(0).sort()[1];
+    } else {
+        return filterValues.last();
+    }
+}
+
 function updateMotorData() {
     console.log(driver.Rspeed());
     io.emit("motordata", {
-        Rspeed: driver.Rspeed(),
-        Lspeed: driver.Lspeed(),
+        Rspeed: driver.Rspeed().round(2),
+        Lspeed: driver.Lspeed().round(2),
         Rdistance: driver.Rdistance(),
         Ldistance: driver.Ldistance(),
         Rsamples: RspeedSamples,
         Lsamples: LspeedSamples,
+        heading: medianFilter(driver.heading().round(2))
     });
     RspeedSamples = [];
 	LspeedSamples = [];

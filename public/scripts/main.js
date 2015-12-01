@@ -1,30 +1,17 @@
 Object.extend();
 
-function Monitor(container) {
-    var view = MonitorView(container);
-    var data = [[0]];
-    function addValue(val, dataArray) {
-        if(!isNaN(parseFloat(val))) {
-            dataArray.push(val);
-            if(dataArray.length > BUFFER_SIZE) {
-                dataArray.shift();
-            }
-        }
+function testCharts() {
+    var i=0;
+    var buff = [];
+    function mySine(x) {
+        return Math.sin(2*Math.PI*i/1000)+ 0.1*Math.sin(2*Math.PI*i/5);
     }
-    function addData(val) {
-        addValue(val, data[0]);
-        view.render(data);
-    }
-    function addMultiple(values) {
-        values.each(function(val) {
-            addValue(val, data[0]);
-        });
-        view.render(data);
-    }
-    return {
-        add: addData,
-        addMultiple : addMultiple
-    }
+    setInterval(function () {
+        buff = [];
+        (5).times(function () {buff.push(mySine(i)); i++;});
+        Rchart.addMultiple(buff);
+        Lchart.addMultiple(buff);
+    }, 100);
 }
 
 $(function () {
@@ -43,16 +30,6 @@ $(function () {
         if(typeof data.Lsamples == "object" && data.Lsamples.isArray())
             Lchart.addMultiple(data.Lsamples);
     });
-    /*
-    var i=0;
-    var buff = [];
-    function mySine(x) {
-        return Math.sin(2*Math.PI*i/1000)+ 0.1*Math.sin(2*Math.PI*i/5);
-    }
-    setInterval(function () {
-        buff = [];
-        (5).times(function () {buff.push(mySine(i)); i++;});
-        Rchart.addMultiple(buff);
-        Lchart.addMultiple(buff);
-    }, 100);*/
+
+    testCharts();
 });

@@ -39,6 +39,19 @@ function MonitorView(container) {
     var data = [[0]];
     var chart = new Chartist.Line(container, {labels: labels, series: data}, options);
 
+    var onPlay = function() {console.log("play !");};
+    var onStop = function() {console.log("stop !");};
+
+    $("#playChart").hide().click(function () {
+        $("#playChart").hide();
+        $("#stopChart").show();
+        onPlay();
+    });
+    $("#stopChart").click(function () {
+        $("#playChart").show();
+        $("#stopChart").hide();
+        onStop();
+    });
     function render(data) {
         chart.update({labels: labels, series: data});
     }
@@ -49,6 +62,12 @@ function MonitorView(container) {
 
     return {
         render: render,
-        timeFrame: updateTimeFrame
+        timeFrame: updateTimeFrame,
+        stop: function (callback) {
+            onStop = callback;
+        },
+        play: function (callback) {
+            onPlay = callback;
+        }
     }
 }

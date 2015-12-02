@@ -23,6 +23,11 @@ $(function () {
     state.PIDupdate(function (pid) {
         socket.emit("pid", pid);
     });
+    state.move(function (move) {
+        Rchart.start();
+        Lchart.start();
+        socket.emit("move", move);
+    });
     socket.on("motordata", function (data) {
         state.render(data);
         if(typeof data.Rsamples == "object" && data.Rsamples.isArray())

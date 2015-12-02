@@ -18,6 +18,8 @@ var io = require("socket.io")(server);
 
 var RspeedSamples = [];
 var LspeedSamples = [];
+var RtargetDist = -232323;
+var LtargetDist = -232323;
 
 io.on('connection', function (socket) {
     var state = {
@@ -41,6 +43,19 @@ io.on('connection', function (socket) {
             driver.Ki(data.Ki);
         if(typeof data.Kd == "number" && !isNaN(data.Kd))
             driver.Kd(data.Kd);
+    });
+    socket.on("move", function(data) {
+        if(typeof data.Rdist == "number" && !isNaN(data.Rdist)
+          && typeof data.Ldist == "number" && !isNaN(data.Ldist)
+          && typeof data.Rspeed == "number" && !isNaN(data.Rspeed)
+          && typeof data.Lspeed == "number" && !isNaN(data.Lspeed)) {
+            driver.Rdistance(0);
+            driver.Ldistance(0);
+            driver.Lspeed(data.Lspeed);
+            driver.Rspeed(data.Rspeed);
+            RtargetDist = data.Rdist.abs();
+            LtargetDist = data.Ldist.abs();
+        }
     });
 });
 
@@ -74,5 +89,13 @@ updateMotorData.every(100);
 function sampleSpeed() {
 	RspeedSamples.push(driver.Rspeed());
 	LspeedSamples.push(driver.Lspeed());
+    if(RtargetDist > 0 && driver.Rdistance().abs() >= RtargetDist) {
+        driver.Rspeed(0);
+        RtargetDist = -232323;
+    }
+    if(LtargetDist > 0 && driver.Ldistance().abs() >= LtargetDist) {
+        driver.Lspeed(0);
+        LtargetDist = -232323;
+    }
 }
 sampleSpeed().every(20);

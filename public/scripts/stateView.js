@@ -17,8 +17,8 @@ function StateView(container) {
         var move = {
             Rdist: parseInt($("#moveDist").val()),
             Ldist: parseInt($("#moveDist").val()),
-            Rspeed: parseInt($("#moveSpeed").val()),
-            Lspeed: parseInt($("#moveSpeed").val())
+            Rspeed: parseFloat($("#moveSpeed").val()),
+            Lspeed: parseFloat($("#moveSpeed").val())
         }
         if(isNaN(move.Rdist) || isNaN(move.Rspeed))
             alert("Vitesse et/ou distance non valide");
@@ -29,8 +29,8 @@ function StateView(container) {
         var move = {
             Rdist: parseInt($("#moveDist").val()),
             Ldist: parseInt($("#moveDist").val()),
-            Rspeed: -parseInt($("#moveSpeed").val()),
-            Lspeed: -parseInt($("#moveSpeed").val())
+            Rspeed: -parseFloat($("#moveSpeed").val()),
+            Lspeed: -parseFloat($("#moveSpeed").val())
         }
         if(isNaN(move.Rdist) || isNaN(move.Rspeed))
             alert("Vitesse et/ou distance non valide");

@@ -39,25 +39,35 @@ io.on('connection', function (socket) {
     io.emit("motordata", state);
 
     socket.on("pid", function(data) {
+        sampleSpeed.cancel();
+        updateMotorData.cancel();
         console.log("Updating PID");
-        if(typeof data.Kp == "number" && !isNaN(data.Kp))
-            driver.Kp(data.Kp);
-        if(typeof data.Ki == "number" && !isNaN(data.Ki))
-            driver.Ki(data.Ki);
-        if(typeof data.Kd == "number" && !isNaN(data.Kd))
-            driver.Kd(data.Kd);
+        (function () {
+          if(typeof data.Kp == "number" && !isNaN(data.Kp))
+              driver.Kp(data.Kp);
+          if(typeof data.Ki == "number" && !isNaN(data.Ki))
+              driver.Ki(data.Ki);
+          if(typeof data.Kd == "number" && !isNaN(data.Kd))
+              driver.Kd(data.Kd);
+          sampleSpeed.every(20);
+          updateMotorData.every(100);
+        }).delay(20);
     });
     socket.on("move", function(data) {
         if(typeof data.Rdist == "number" && !isNaN(data.Rdist)
           && typeof data.Ldist == "number" && !isNaN(data.Ldist)
           && typeof data.Rspeed == "number" && !isNaN(data.Rspeed)
           && typeof data.Lspeed == "number" && !isNaN(data.Lspeed)) {
+            sampleSpeed.cancel();
             driver.Rdistance(0);
             driver.Ldistance(0);
             driver.Lspeed(data.Lspeed);
             driver.Rspeed(data.Rspeed);
-            RtargetDist = data.Rdist.abs();
-            LtargetDist = data.Ldist.abs();
+            (function () {
+              RtargetDist = data.Rdist.abs();
+              LtargetDist = data.Ldist.abs();
+              sampleSpeed.every(20);
+            }).delay(20);
         }
     });
 });
@@ -81,7 +91,7 @@ function updateMotorData() {
         Ldistance: driver.Ldistance(),
         Rsamples: RspeedSamples,
         Lsamples: LspeedSamples,
-        heading: medianFilter(driver.heading().round(2))
+        //heading: medianFilter(driver.heading().round(2))
     });
     RspeedSamples = [];
 	LspeedSamples = [];

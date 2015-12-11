@@ -5,7 +5,7 @@ var voidPtr = ref.refType('void');
 var simpleCallback = ffi.Function('void', []);
 var motionCallback = ffi.Function('void', [voidPtr]);
 
-var lib = ffi.Library('./../build/librobotdriver', {
+var lib = ffi.Library('librobotdriver', {
     // motioncontroller
     'initMotionController': [ 'int', [] ],
     'getMaxAcceleration': [ 'double', [] ],
@@ -26,7 +26,6 @@ var lib = ffi.Library('./../build/librobotdriver', {
     'getTargetHeading': [ 'double', [] ],
     'setTargetHeading': [ 'void', ['double', simpleCallback] ],
     'turnOf': [ 'void', ['double', simpleCallback] ],
-    'getCurrentHeading': [ 'double', [] ],
     'getHeadingTolerance': [ 'double', [] ],
     'setHeadingTolerance': [ 'void', ['double'] ],
     'getMaxDiffSpeed': [ 'double', [] ],

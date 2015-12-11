@@ -24,7 +24,8 @@ var LtargetDist = -232323;
 var filterValues = [];
 
 function medianFilter(value) {
-    filterValues.push(value);
+    if(value >= 0)
+    	filterValues.push(value);
     if(filterValues.length==4) {
         filterValues.shift();
         return filterValues.slice(0).sort()[1];

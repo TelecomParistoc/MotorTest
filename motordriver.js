@@ -2,12 +2,12 @@ var ffi = require('ffi');
 
 var lib = ffi.Library('librobotdriver', {
   'initMotorDriver': [ 'int', [] ],
-  'getLdistance': [ 'int', [] ],
-  'getRdistance': [ 'int', [] ],
+  'getLdistance': [ 'double', [] ],
+  'getRdistance': [ 'double', [] ],
   'getRspeed': [ 'double', [] ],
   'getLspeed': [ 'double', [] ],
-  'setLdistance': [ 'void', ['int'] ],
-  'setRdistance': [ 'void', ['int'] ],
+  'setLdistance': [ 'void', ['double'] ],
+  'setRdistance': [ 'void', ['double'] ],
   'setRspeed': [ 'void', ['double'] ],
   'setLspeed': [ 'void', ['double'] ],
   'getKp': [ 'uint8', [] ],
@@ -87,4 +87,4 @@ module.exports = {
             return lib.getMotorDriverUpdateFreq();
         }
     },
-}
+};

@@ -1,7 +1,7 @@
 var express = require('express');
 var path = require('path');
 var driver = require('./motordriver.js');
-require("sugar");
+require('sugar');
 
 var app = express();
 
@@ -14,7 +14,7 @@ var server = app.listen(3002, function () {
   console.log('MotorTest listening at http://%s:%s', host, port);
 });
 
-var io = require("socket.io")(server);
+var io = require('socket.io')(server);
 
 var RspeedSamples = [];
 var LspeedSamples = [];
@@ -26,10 +26,10 @@ driver.init();
 
 io.on('connection', function (socket) {
     var state = {
-        Rspeed: driver.Rspeed(),
-        Lspeed: driver.Lspeed(),
-        Rdistance: driver.Rdistance(),
-        Ldistance: driver.Ldistance(),
+        Rspeed: driver.Rspeed().round(2),
+        Lspeed: driver.Lspeed().round(2),
+        Rdistance: driver.Rdistance().round(2),
+        Ldistance: driver.Ldistance().round(2),
         Kp: driver.Kp(),
         Ki: driver.Ki(),
         Kd: driver.Kd()
@@ -87,8 +87,8 @@ function updateMotorData() {
     io.emit("motordata", {
         Rspeed: driver.Rspeed().round(2),
         Lspeed: driver.Lspeed().round(2),
-        Rdistance: driver.Rdistance(),
-        Ldistance: driver.Ldistance(),
+        Rdistance: driver.Rdistance().round(2),
+        Ldistance: driver.Ldistance().round(2),
         Rsamples: RspeedSamples,
         Lsamples: LspeedSamples,
         //heading: medianFilter(driver.heading().round(2))

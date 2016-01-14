@@ -21,18 +21,7 @@ var RspeedSamples = [];
 var LspeedSamples = [];
 var RtargetDist = -232323;
 var LtargetDist = -232323;
-var filterValues = [];
 
-function medianFilter(value) {
-    if(value >= 0)
-    	filterValues.push(value);
-    if(filterValues.length==4) {
-        filterValues.shift();
-        return filterValues.slice(0).sort()[1];
-    } else {
-        return filterValues.last();
-    }
-}
 function isNumber(number) {
     return typeof number == "number" && !isNaN(number);
 }
@@ -44,7 +33,7 @@ function getState(includePIDcoeffs) {
         Ldistance: driver.Ldistance().round(2),
         Rsamples: RspeedSamples,
         Lsamples: LspeedSamples,
-        heading: medianFilter(driver.heading().round(2))
+        heading: driver.heading().round(2)
     };
     if(includePIDcoeffs) {
         state.Kp = driver.Kp();
